@@ -1,7 +1,7 @@
 Context.IO - Mailboxes know a lot. Use them.
 ============================================
 
-Context.IO is the missing email API that makes it easy and fast to integrate your user's email data in your application. ContextIO-node is the officiel Node.js client library.
+Context.IO is the missing email API that makes it easy and fast to integrate your user's email data in your application. ContextIO-node is the official Node.js client library.
 
 Usage of this library requires you to register for a Context.IO API key. You can get one free here: http://context.io/
 
