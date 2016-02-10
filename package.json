@@ -1,23 +1,38 @@
 {
-	"name": "contextio",
-	"description": "Official Node.js client library for the Context.IO Email API",
-	"keywords": ["email","ContextIO","api","imap","gmail","tools","rest"],
-	"version": "0.5.0",
-	"author": "Aaron LaBrie <aaron.labrie@returnpath.com>",
-	"repository": {
-		"type": "git",
-		"url": "http://github.com/ContextIO/ContextIO-node.git"
-	},
-	"bugs": {
-		"url": "http://github.com/ContextIO/ContextIO-node/issues",
-		"email": "support@context.io"
-	},
-	"devDependencies": {
-		"vows": "0.6.x"
-	},
-	"main": "./lib/ContextIO",
-	"scripts": { "test": "vows test/*.js --spec" },
-	"engines": {
-		"node": ">= 0.4.12"
-	}
+  "name": "contextio",
+  "description": "Official Node.js client library for the Context.IO Email API",
+  "keywords": [
+    "email",
+    "ContextIO",
+    "api",
+    "imap",
+    "gmail",
+    "tools",
+    "rest"
+  ],
+  "version": "0.5.0",
+  "author": "Aaron LaBrie <aaron.labrie@returnpath.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/ContextIO/ContextIO-node.git"
+  },
+  "bugs": {
+    "url": "http://github.com/ContextIO/ContextIO-node/issues",
+    "email": "support@context.io"
+  },
+  "devDependencies": {
+    "vows": "0.6.x"
+  },
+  "main": "./lib/ContextIO",
+  "scripts": {
+    "test": "vows test/*.js --spec"
+  },
+  "engines": {
+    "node": ">= 0.4.12"
+  },
+  "dependencies": {
+    "oauth-1.0a": "^1.0.1",
+    "request-promise": "^2.0.0"
+  }
 }
