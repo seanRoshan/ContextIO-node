@@ -17,42 +17,25 @@ ContextIO-node is installed using npm (http://npmjs.org/)
 Getting started
 ---------------
 
-Once you install the contextio package, using it in your code is fairly simple:
+Once you install the contextio package, using it in your code is simple:
 
 ``` js
   var ContextIO = require('contextio');
+
   var ctxioClient = new ContextIO.Client({
     key: "YOUR CONTEXT.IO CONSUMER KEY",
-    secret: "YOUR CONTEXT.IO CONSUMER SECRET"
-  });
-```
- 
- The `Client` constructor simply requires your OAuth consumer key and secret. You can also specify the version and endpoint. By default, the client will use the latest stable version of the API (currently 2.0) and http://api.context.io respectively.
- 
- Instantiating the client while specifying the API version:
- 
-``` js
-  var ContextIO = require('contextio');
-  var ctxioClient = new ContextIO.Client('2.0', {
-    key: "YOUR CONTEXT.IO CONSUMER KEY",
-    secret: "YOUR CONTEXT.IO CONSUMER SECRET"
+    secret: "YOUR CONTEXT.IO CONSUMER SECRET",
+    version: "SELECTED API VERSION"
   });
 ```
 
-Instantiating the client while specifying the API version and endpoint:
+ The `Client` constructor requires your OAuth consumer key and secret. You can optionally specify the API you wish to use. By default, the client will use version 2.0.
 
-``` js
-  var ContextIO = require('contextio');
-  var ctxioClient = new ContextIO.Client('2.0', 'https://api.context.io', {
-    key: "YOUR CONTEXT.IO CONSUMER KEY",
-    secret: "YOUR CONTEXT.IO CONSUMER SECRET"
-  });
-```
 
-Doing calls to the Context.IO API
+Making calls to the Context.IO API
 ---------------------------------
 
-Complete documentation is available on http://context.io/docs/latest and you can also play around with the API using the Context.IO Explorer (https://console.context.io/#explore, developer account required).
+Complete documentation is available on http://context.io/docs/ and you can also play around with the API using the Context.IO Explorer (https://console.context.io/#explore, developer account required).
 
 The design of this library follows the URI structure very closely. For example, to call:
 
@@ -63,9 +46,8 @@ GET /2.0/accounts?limit=15
 you would do:
 
 ``` js
-ctxioClient.accounts().get({limit:15}, function (err, response) {
-	if (err) throw err;
-	console.log(response.body);
+ctxioClient.accounts().get({limit:15}).then(function (res) {
+	console.log(res);
 });
 ```
 
@@ -78,34 +60,23 @@ METHOD /2.0/RESOURCE/INSTANCE_ID/SUB_RESOURCE?PARAMS
 would be:
 
 ``` js
-ctxioClient.RESOURCE(INSTANCE_ID).SUB_RESOURCE().METHOD(PARAMS, CALLBACK_FN)
+ctxioClient.RESOURCE(INSTANCE_ID).SUB_RESOURCE().METHOD(PARAMS).then(callback_function)
 ```
 Note that if the resource name contains an underscore character (eg. connect_tokens), you can use both connect_tokens() or connectTokens() with this library.
 
+### Error handling
+All errors are thrown, so to handle these gracefully you should add a `catch()` to your API calls.
+
+``` js
+ctxioClient.accounts().get({limit:15}).then(function (res) {
+	console.log(res);
+}).catch(function (err) {
+  console.log(err);
+});
+```
 
 ### Parameters
-Call parameters are passed as an `Object` with properties matching parameter name. Parameters for POST or GET work the same: an Object passed as the first argument of the method call.
 
-### Callback function
-Your callback function gets 3 arguments:
 
-  1. **err** Either null or an `Error` if something went wrong
-  2. **response** An `Object` representing the HTTP response. It has three properties:
-    * *body*: `Object`, `Array` or `String` - If Content-Type is `application/json`, the response body is parsed automatically
-    * *statusCode*: `Number` - The HTTP status code of the response
-    * *headers*: `Object` - HTTP headers of the response
-  3. **request** An `Object` mainly useful for debugging purposes
-    * *host*: `String` - Host part of the URL being called
-    * *path*: `String` - Path portion of the URL being called
-    * *method*: `String` - HTTP method of the call
-    * *headers*: `Object` - HTTP headers of the request
-
-Node.js version
----------------
-
-It has been tested on Node.js 0.6.
-
-Examples
---------
-
-Please refer to the test files for an example of every single call.
+### Promise resolution
+Your success function will get some stuff, dude idk
