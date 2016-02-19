@@ -17,19 +17,19 @@ ContextIO-node is installed using npm (http://npmjs.org/)
 Getting started
 ---------------
 
-Once you install the contextio package, using it in your code is simple:
+ The `Client` constructor requires your OAuth consumer key and secret. You can optionally specify the API you wish to use. By default, the client will use version 2.0.
 
 ``` js
   var ContextIO = require('contextio');
 
   var ctxioClient = new ContextIO.Client({
-    key: "YOUR CONTEXT.IO CONSUMER KEY",
-    secret: "YOUR CONTEXT.IO CONSUMER SECRET",
+    key: "YOUR CONTEXT.IO OAuth CONSUMER KEY",
+    secret: "YOUR CONTEXT.IO OAuth CONSUMER SECRET",
     version: "SELECTED API VERSION"
   });
 ```
 
- The `Client` constructor requires your OAuth consumer key and secret. You can optionally specify the API you wish to use. By default, the client will use version 2.0.
+We **strongly** discourage keeping OAuth credentials in source control. If you ever need to regenerate your consumer secret you can do so on our [developer console](https://console.context.io/#settings)
 
 
 Making calls to the Context.IO API
@@ -60,9 +60,11 @@ METHOD /2.0/RESOURCE/INSTANCE_ID/SUB_RESOURCE?PARAMS
 would be:
 
 ``` js
-ctxioClient.RESOURCE(INSTANCE_ID).SUB_RESOURCE().METHOD(PARAMS).then(callback_function)
+ctxioClient.RESOURCE(INSTANCE_ID).SUB_RESOURCE().METHOD(PARAMS).then(success_handler)
 ```
-Note that if the resource name contains an underscore character (eg. connect_tokens), you can use both connect_tokens() or connectTokens() with this library.
+
+### Success Callback
+Your callback function will receive one argument, an object containing the API response. We even JSON parsed it for you!
 
 ### Error handling
 All errors are thrown, so to handle these gracefully you should add a `catch()` to your API calls.
@@ -76,7 +78,6 @@ ctxioClient.accounts().get({limit:15}).then(function (res) {
 ```
 
 ### Parameters
-
-
-### Promise resolution
-Your success function will get some stuff, dude idk
+Query parameters are passed in as an object to the method call: `.get({limit:15})`.  
+Post parameters are passed the same way: `.post({email:"test@test.com"})`.  
+If an endpoint supports both query params and a post body, you can pass the query params as another object: `.post({email:"test@test.com"}, {foo: "bar"})`.
