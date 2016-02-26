@@ -21,16 +21,7 @@
     "url": "http://github.com/ContextIO/ContextIO-node/issues",
     "email": "support@context.io"
   },
-  "devDependencies": {
-    "vows": "0.6.x"
-  },
   "main": "./lib/ContextIO",
-  "scripts": {
-    "test": "vows test/*.js --spec"
-  },
-  "engines": {
-    "node": ">= 0.4.12"
-  },
   "dependencies": {
     "oauth-1.0a": "^1.0.1",
     "request-promise": "^2.0.0"
