@@ -23,7 +23,7 @@
   },
   "main": "./lib/ContextIO",
   "dependencies": {
-    "oauth-1.0a": "^1.0.1",
-    "request-promise": "^2.0.0"
+    "request-promise": "^2.0.0",
+      "bluebird": "^3.3.3"
   }
 }

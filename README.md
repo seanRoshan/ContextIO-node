@@ -11,7 +11,7 @@ Installation
 ContextIO-node is installed using npm (http://npmjs.org/)
 
 ``` bash
-  $ npm install contextio
+$ npm install contextio
 ```
 
 Getting started
@@ -20,13 +20,13 @@ Getting started
  The `Client` constructor requires your OAuth consumer key and secret. You can optionally specify the API you wish to use. By default, the client will use version 2.0.
 
 ``` js
-  var ContextIO = require('contextio');
+var ContextIO = require('contextio');
 
-  var ctxioClient = new ContextIO.Client({
-    key: "YOUR CONTEXT.IO OAuth CONSUMER KEY",
-    secret: "YOUR CONTEXT.IO OAuth CONSUMER SECRET",
-    version: "SELECTED API VERSION"
-  });
+var ctxioClient = ContextIO({
+  key: "YOUR CONTEXT.IO OAuth CONSUMER KEY",
+  secret: "YOUR CONTEXT.IO OAuth CONSUMER SECRET",
+  version: "SELECTED API VERSION"
+});
 ```
 
 We **strongly** discourage keeping OAuth credentials in source control. If you ever need to regenerate your consumer secret you can do so on our [developer console](https://console.context.io/#settings)
@@ -69,11 +69,12 @@ Your callback function will receive one argument, an object containing the API r
 ### Error handling
 All errors are thrown, so to handle these gracefully you should add a `catch()` to your API calls.
 
+
 ``` js
 ctxioClient.accounts().get({limit:15}).then(function (res) {
 	console.log(res);
 }).catch(function (err) {
-  console.log(err);
+  console.log(err.message);
 });
 ```
 
