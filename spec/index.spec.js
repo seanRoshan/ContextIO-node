@@ -41,7 +41,7 @@ describe("ContextIO Tests", function() {
 
   })
 
-  it("create a lite client", function(done) {
+  it("create a versioned client", function(done) {
 
     var ctxioClient = ContextIO({
       key: "testy_key",
