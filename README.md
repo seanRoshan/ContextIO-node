@@ -5,54 +5,42 @@ Context.IO is the missing email API that makes it easy and fast to integrate you
 
 Usage of this library requires you to register for a Context.IO API key. You can get one free here: http://context.io/
 
+Beta Client
+-----------
+
+All versions below `v1.0.0-beta` are now deprecated, this will be the supported version of the client going forward. We welcome comments/pull requests/testing on this new version, so go crazy!
+
+If you wish to use the deprecated version `0.5.0` it can be found [here](https://github.com/contextio/ContextIO-node/tree/v0.5.0).
+
 Installation
 ------------
 
-ContextIO-node is installed using npm (http://npmjs.org/)
-
 ``` bash
-  $ npm install contextio
+$ npm install contextio
 ```
 
 Getting started
 ---------------
 
-Once you install the contextio package, using it in your code is fairly simple:
+The constructor requires your OAuth consumer key and secret. You can optionally specify the API version you wish to use. By default, the client will use version 2.0.
 
 ``` js
-  var ContextIO = require('contextio');
-  var ctxioClient = new ContextIO.Client({
-    key: "YOUR CONTEXT.IO CONSUMER KEY",
-    secret: "YOUR CONTEXT.IO CONSUMER SECRET"
-  });
-```
- 
- The `Client` constructor simply requires your OAuth consumer key and secret. You can also specify the version and endpoint. By default, the client will use the latest stable version of the API (currently 2.0) and http://api.context.io respectively.
- 
- Instantiating the client while specifying the API version:
- 
-``` js
-  var ContextIO = require('contextio');
-  var ctxioClient = new ContextIO.Client('2.0', {
-    key: "YOUR CONTEXT.IO CONSUMER KEY",
-    secret: "YOUR CONTEXT.IO CONSUMER SECRET"
-  });
+var ContextIO = require('contextio')
+
+var ctxioClient = ContextIO({
+  key: "YOUR CONTEXT.IO OAuth CONSUMER KEY",
+  secret: "YOUR CONTEXT.IO OAuth CONSUMER SECRET",
+  version: "SELECTED API VERSION"
+})
 ```
 
-Instantiating the client while specifying the API version and endpoint:
+We **strongly** discourage keeping OAuth credentials in source control. If you ever need to regenerate your consumer secret you can do so on our [developer console](https://console.context.io/#settings)
 
-``` js
-  var ContextIO = require('contextio');
-  var ctxioClient = new ContextIO.Client('2.0', 'https://api.context.io', {
-    key: "YOUR CONTEXT.IO CONSUMER KEY",
-    secret: "YOUR CONTEXT.IO CONSUMER SECRET"
-  });
-```
 
-Doing calls to the Context.IO API
----------------------------------
+Making calls to the Context.IO API
+----------------------------------
 
-Complete documentation is available on http://context.io/docs/latest and you can also play around with the API using the Context.IO Explorer (https://console.context.io/#explore, developer account required).
+Complete documentation is available on http://context.io/docs/ and you can also play around with the API using the [API Explorer](https://console.context.io/#explore) on our developer console.
 
 The design of this library follows the URI structure very closely. For example, to call:
 
@@ -60,52 +48,97 @@ The design of this library follows the URI structure very closely. For example, 
 GET /2.0/accounts?limit=15
 ```
 
-you would do:
+your function call would be:
 
 ``` js
-ctxioClient.accounts().get({limit:15}, function (err, response) {
-	if (err) throw err;
-	console.log(response.body);
+ctxioClient.accounts().get({limit:15}).then(function (res) {
+  console.log(res);
 });
 ```
 
 Making it more general, the equivalent of this generic URI:
 
 ``` http
-METHOD /2.0/RESOURCE/INSTANCE_ID/SUB_RESOURCE?PARAMS
+METHOD /RESOURCE/INSTANCE_ID/SUB_RESOURCE?PARAMS
 ```
 
 would be:
 
 ``` js
-ctxioClient.RESOURCE(INSTANCE_ID).SUB_RESOURCE().METHOD(PARAMS, CALLBACK_FN)
+ctxioClient.RESOURCE(INSTANCE_ID).SUB_RESOURCE().METHOD(PARAMS).then(success_handler)
 ```
-Note that if the resource name contains an underscore character (eg. connect_tokens), you can use both connect_tokens() or connectTokens() with this library.
+
+Parameters
+----------------------------------
+Query parameters are passed in as an object to the method call:
+
+```js
+.get({limit:15})
+```
+
+Post parameters are passed the same way:
+
+```js
+.post({email:"test@test.com"})
+```
+
+If an endpoint supports both query params and a post body, you can pass the query params as another object:
+
+```js
+.post({email:"test@test.com"}, {foo: "bar"})
+```
+
+Success Callback
+----------------------------------
+Your callback function will receive one argument: an object containing the API response. The body will be JSON parsed for all endpoints that return JSON.
+
+Endpoints that return a raw response will return the unparsed body.
+
+The `2.0/accounts/files/content` endpoint will return an object containing the request headers and the unprocessed body. For more information, please visit our [documentation for that endpoint](https://context.io/docs/2.0/accounts/files/content).
+```js
+{ headers: res.headers, body: res.body }
+```
+
+Error handling
+----------------------------------
+All errors are thrown, so to handle these gracefully you should add a `catch()` to your API calls.
+
+``` js
+ctxioClient.accounts().get({limit:15}).then(function (res) {
+  console.log(res)
+}).catch(function (err) {
+  console.log(err.message)
+})
+```
+
+The only errors that this client produces occur when it does not have enough information to construct an api call.
+This can occur when a parent resource identifier is missing or when the api key/secret/version are not being set correctly.
+
+For example, this call would would cause an error to be thrown because there is no `account_id`.
+```js
+ctxioClient.accounts().messages().get()
+```
+
+There is no API error handling built in this client and all API errors will be thrown intact. Our [documentation](https://context.io/docs/) can help in understanding error codes and a handy reference for http status codes can be found over at [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
 
 
-### Parameters
-Call parameters are passed as an `Object` with properties matching parameter name. Parameters for POST or GET work the same: an Object passed as the first argument of the method call.
+Testing
+----------------------------------
+Tests are written against [Jasmine 2.4](http://jasmine.github.io/2.4/introduction.html) and rely on instantiating a client with the `testing` option set to true
 
-### Callback function
-Your callback function gets 3 arguments:
+```js
+var ctxioClient = ContextIO({
+  key: "testy_key",
+  secret: "sooper_secret",
+  testing: true
+})
+```
 
-  1. **err** Either null or an `Error` if something went wrong
-  2. **response** An `Object` representing the HTTP response. It has three properties:
-    * *body*: `Object`, `Array` or `String` - If Content-Type is `application/json`, the response body is parsed automatically
-    * *statusCode*: `Number` - The HTTP status code of the response
-    * *headers*: `Object` - HTTP headers of the response
-  3. **request** An `Object` mainly useful for debugging purposes
-    * *host*: `String` - Host part of the URL being called
-    * *path*: `String` - Path portion of the URL being called
-    * *method*: `String` - HTTP method of the call
-    * *headers*: `Object` - HTTP headers of the request
+This option sidesteps the http calls from `request-promise` and returns the object that would be passed to that library.
 
-Node.js version
----------------
+Support
+----------------------------------
 
-It has been tested on Node.js 0.6.
+For API support please consult our [support site](http://support.context.io) and feel free to drop a line to support@context.io.
 
-Examples
---------
-
-Please refer to the test files for an example of every single call.
+If you want to open an issue or PR for this library - go ahead! We'd love to hear your feedback.
