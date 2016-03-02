@@ -16,7 +16,7 @@ Installation
 ------------
 
 ``` bash
-$ npm install contextio
+$ npm install contextio@1.0.0-beta --save
 ```
 
 Getting started
