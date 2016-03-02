@@ -10,7 +10,7 @@
     "tools",
     "rest"
   ],
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "author": "Aaron LaBrie <aaron@context.io>",
   "license": "Apache-2.0",
   "repository": {
