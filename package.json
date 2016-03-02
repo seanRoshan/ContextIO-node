@@ -10,8 +10,8 @@
     "tools",
     "rest"
   ],
-  "version": "0.6.0",
-  "author": "Aaron LaBrie <aaron.labrie@returnpath.com>",
+  "version": "1.0.0",
+  "author": "Aaron LaBrie <aaron@context.io>",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -24,6 +24,6 @@
   "main": "./lib/ContextIO",
   "dependencies": {
     "request-promise": "^2.0.0",
-      "bluebird": "^3.3.3"
+    "bluebird": "^3.3.3"
   }
 }
