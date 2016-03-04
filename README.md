@@ -12,11 +12,22 @@ All versions below `v1.0.0-beta` are now deprecated, this will be the supported 
 
 If you wish to use the deprecated version `0.5.0` it can be found [here](https://github.com/contextio/ContextIO-node/tree/v0.5.0).
 
+What's Changed?
+---------------
+
+This client now supports the [Lite](https://context.io/docs/lite) version of the Context.IO Api!
+
+Specifying which version of the API to use is slightly different from previous versions, see the "Getting Started" section below.
+
+Callbacks are now handled via promises, so you'll want to change those to use the `.then()` and `.catch()` syntax.
+
+All aliases of `resource_name()` to `resourceName()` have been removed. Following the API naming conventions, multi-word resources are always accessed via `resource_name()`.
+
 Installation
 ------------
 
 ``` bash
-$ npm install contextio@1.0.0-beta --save
+$ npm install contextio@latest --save
 ```
 
 Getting started
@@ -89,7 +100,7 @@ If an endpoint supports both query params and a post body, you can pass the quer
 ```
 
 Success Callback
-----------------------------------
+----------------
 Your callback function will receive one argument: an object containing the API response. The body will be JSON parsed for all endpoints that return JSON.
 
 Endpoints that return a raw response will return the unparsed body.
@@ -100,7 +111,7 @@ The `2.0/accounts/files/content` endpoint will return an object containing the r
 ```
 
 Error handling
-----------------------------------
+--------------
 All errors are thrown, so to handle these gracefully you should add a `catch()` to your API calls.
 
 ``` js
@@ -123,7 +134,7 @@ There is no API error handling built in this client and all API errors will be t
 
 
 Testing
-----------------------------------
+-------
 Tests are written against [Jasmine 2.4](http://jasmine.github.io/2.4/introduction.html) and rely on instantiating a client with the `testing` option set to true
 
 ```js
@@ -137,7 +148,7 @@ var ctxioClient = ContextIO({
 This option sidesteps the http calls from `request-promise` and returns the object that would be passed to that library.
 
 Support
-----------------------------------
+-------
 
 For API support please consult our [support site](http://support.context.io) and feel free to drop a line to support@context.io.
 
