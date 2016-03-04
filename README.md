@@ -15,7 +15,7 @@ If you wish to use the deprecated version `0.5.0` it can be found [here](https:/
 What's Changed?
 ---------------
 
-This client now supports the [Lite](https://context.io/docs/lite) version of the Context.IO Api!
+This client now supports the [Lite](https://context.io/docs/lite) version of the Context.IO API!
 
 Specifying which version of the API to use is slightly different from previous versions, see the "Getting Started" section below.
 
