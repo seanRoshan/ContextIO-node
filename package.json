@@ -13,7 +13,7 @@
     "tools",
     "rest"
   ],
-  "version": "1.0.0-beta",
+  "version": "1.0.0-beta-2",
   "author": "Aaron LaBrie <aaron@context.io>",
   "license": "Apache-2.0",
   "repository": {
