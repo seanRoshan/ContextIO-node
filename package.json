@@ -1,6 +1,9 @@
 {
   "name": "contextio",
   "description": "Official Node.js client library for the Context.IO Email API",
+  "scripts": {
+    "test": "jasmine"
+  },
   "keywords": [
     "email",
     "ContextIO",
