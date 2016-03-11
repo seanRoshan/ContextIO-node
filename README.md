@@ -63,8 +63,8 @@ your function call would be:
 
 ``` js
 ctxioClient.accounts().get({limit:15}).then(function (res) {
-  console.log(res);
-});
+  console.log(res)
+})
 ```
 
 Making it more general, the equivalent of this generic URI:
