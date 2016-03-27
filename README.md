@@ -133,23 +133,22 @@ ctxioClient.accounts().messages().get()
 There is no API error handling built in this client and all API errors will be thrown intact. Our [documentation](https://context.io/docs/) can help in understanding error codes and a handy reference for http status codes can be found over at [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
 
 
-Testing
+Testing/Debugging
 -------
-Tests are written against [Jasmine 2.4](http://jasmine.github.io/2.4/introduction.html) and rely on instantiating a client with the `testing` option set to true
+Tests are written against [Jasmine 2.4](http://jasmine.github.io/2.4/introduction.html) and rely on instantiating a client with the `debug` option set to true
 
 ```js
 var ctxioClient = ContextIO({
   key: "testy_key",
   secret: "sooper_secret",
-  testing: true
+  debug: true
 })
 ```
 
-This option sidesteps the http calls from `request-promise` and returns the object that would be passed to that library.
+This option circumvents the call to `request-promise`, the http library that we use. You may find this useful during development as it allows you to see exactly what is being passed to the `request-promise` library.
 
 Support
 -------
-
-For API support please consult our [support site](http://support.context.io) and feel free to drop a line to support@context.io.
-
 If you want to open an issue or PR for this library - go ahead! We'd love to hear your feedback.
+
+For API support please consult our [support site](http://support.context.io) and feel free to drop a line to [support@context.io](mailto:support@context.io).
