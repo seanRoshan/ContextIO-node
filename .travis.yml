@@ -1,0 +1,6 @@
+language: node_js
+node_js:
+  - 4
+# 'npm test' runs 'grunt test'
+before_script:
+  - npm install -g jasmine
