@@ -50,4 +50,38 @@ describe('ContextIO Tests', function () {
 
     done()
   })
+
+  it('check a lite resource_url', function (done) {
+    var ctxioClient = ContextIO({
+      key: 'testy_key',
+      secret: 'sooper_secret',
+      version: 'lite',
+      debug: true
+    })
+
+    var resource_url = 'https://api.context.io/lite/foo/bar/baz'
+
+    ctxioClient.resource(resource_url).post().then(function (res) {
+      expect(res.url).toBe(resource_url)
+      expect(res.method).toBe('POST')
+      done()
+    })
+  })
+
+  it('check a malformed lite resource_url', function (done) {
+    var ctxioClient = ContextIO({
+      key: 'testy_key',
+      secret: 'sooper_secret',
+      version: 'lite',
+      debug: true
+    })
+
+    var resource_url = 'https://github.com/foo/bar/baz'
+
+    ctxioClient.resource(resource_url).get().then(function (res) {
+      expect(res.url).toBe('https://api.context.io/lite/' + resource_url)
+      done()
+    })
+  })
+
 })

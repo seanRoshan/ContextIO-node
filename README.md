@@ -101,6 +101,14 @@ If an endpoint supports both query params and a post body, you can pass the quer
 .post({email:"test@test.com"}, {foo: "bar"})
 ```
 
+Resource URLs
+----------------------------------
+Certain endpoints, such as `/2.0/accounts/threads` will return a complete URL that you can call to access a resource. You can use the `resource()` function to call these urls. Parameters are passed as normal.
+
+```js
+ctxioClient.resource(resource_url).get().then(function() {...})
+```
+
 Success Callback
 ----------------
 Your callback function will receive one argument: an object containing the API response. The body will be JSON parsed for all endpoints that return JSON.

@@ -47,4 +47,36 @@ describe('ContextIO Tests', function () {
 
     done()
   })
+
+  it('check a 2.0 resource_url', function (done) {
+    var ctxioClient = ContextIO({
+      key: 'testy_key',
+      secret: 'sooper_secret',
+      debug: true
+    })
+
+    var resource_url = 'https://api.context.io/2.0/foo/bar/baz'
+
+    ctxioClient.resource(resource_url).post().then(function (res) {
+      expect(res.url).toBe(resource_url)
+      expect(res.method).toBe('POST')
+      done()
+    })
+  })
+
+  it('check a malformed 2.0 resource_url', function (done) {
+    var ctxioClient = ContextIO({
+      key: 'testy_key',
+      secret: 'sooper_secret',
+      debug: true
+    })
+
+    var resource_url = 'https://github.com/foo/bar/baz'
+
+    ctxioClient.resource(resource_url).get().then(function (res) {
+      expect(res.url).toBe('https://api.context.io/2.0/' + resource_url)
+      done()
+    })
+  })
+  
 })
