@@ -106,7 +106,7 @@ Resource URLs
 Certain endpoints, such as `/2.0/accounts/threads` will return a complete URL that you can call to access a resource. You can use the `resource()` function to call these urls. Parameters are passed as normal.
 
 ```js
-ctxioClient.resource(resource_url).get().then(function() {...})
+ctxioClient.resource(resource_url).get().then(function (res) {...})
 ```
 
 Success Callback
