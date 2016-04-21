@@ -7,23 +7,6 @@ Context.IO is the missing email API that makes it easy and fast to integrate you
 
 Usage of this library requires you to register for a Context.IO API key. You can get one free here: http://context.io/
 
-Beta Client
------------
-
-All versions below `v1.0.0-beta` are now deprecated, this will be the supported version of the client going forward. We welcome comments/pull requests/testing on this new version, so go crazy!
-
-If you wish to use the deprecated version `0.5.0` it can be found [here](https://github.com/contextio/ContextIO-node/tree/v0.5.0).
-
-What's Changed?
----------------
-
-This client now supports the [Lite](https://context.io/docs/lite) version of the Context.IO API!
-
-Specifying which version of the API to use is slightly different from previous versions, see the "Getting Started" section below.
-
-Callbacks are now handled via promises, so you'll want to change those to use the `.then()` and `.catch()` syntax.
-
-All aliases of `resource_name()` to `resourceName()` have been removed. Following the API naming conventions, multi-word resources are always accessed via `resource_name()`.
 
 Installation
 ------------
