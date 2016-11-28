@@ -125,6 +125,16 @@ ctxioClient.accounts().messages().get()
 
 There is no API error handling built in this client and all API errors will be thrown intact. Our [documentation](https://context.io/docs/) can help in understanding error codes and a handy reference for http status codes can be found over at [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
 
+Downloading Files
+------
+Calls that return file data will have a slightly different response shape:
+```js
+{
+  filename: <name of file>,
+  headers: <response header object>,
+  body: <binary file data>
+}
+```
 
 Testing/Debugging
 -------
