@@ -11,19 +11,28 @@ Usage of this library requires you to register for a Context.IO API key. You can
 Installation
 ------------
 
-``` bash
-$ npm install contextio@latest --save
+Using [Yarn](https://yarnpkg.com/) (recommended)
+```bash
+yarn add contextio
 ```
+
+Using NPM
+``` bash
+npm install contextio --save
+```
+
+_Note:_ This library was written using ES6 syntax. Please use at least Node 6 to ensure proper functionality.
+
 
 Getting started
 ---------------
 
-The constructor requires your OAuth consumer key and secret. You can optionally specify the API version you wish to use. By default, the client will use version 2.0.
+The constructor requires your OAuth consumer key and secret, which you can find by logging in to the [CIO Developer Console](https://console.context.io/). You can optionally specify the API version you wish to use. By default, the client will use version 2.0.
 
 ``` js
-var ContextIO = require('contextio')
+const ContextIO = require('contextio')
 
-var ctxioClient = ContextIO({
+const ctxioClient = ContextIO({
   key: "YOUR CONTEXT.IO OAuth CONSUMER KEY",
   secret: "YOUR CONTEXT.IO OAuth CONSUMER SECRET",
   version: "SELECTED API VERSION"
@@ -47,7 +56,7 @@ GET /2.0/accounts?limit=15
 your function call would be:
 
 ``` js
-ctxioClient.accounts().get({limit:15}).then(function (res) {
+ctxioClient.accounts().get({limit:15}).then(res => {
   console.log(res)
 })
 ```
@@ -89,7 +98,7 @@ Resource URLs
 Certain endpoints, such as `/2.0/accounts/threads` will return a complete URL that you can call to access a resource. You can use the `resource()` function to call these urls. Parameters are passed as normal.
 
 ```js
-ctxioClient.resource(resource_url).get().then(function (res) {...})
+ctxioClient.resource(resource_url).get().then(res => {...})
 ```
 
 Success Callback
@@ -108,9 +117,9 @@ Error handling
 All errors are thrown, so to handle these gracefully you should add a `catch()` to your API calls.
 
 ``` js
-ctxioClient.accounts().get({limit:15}).then(function (res) {
+ctxioClient.accounts().get({limit:15}).then(res => {
   console.log(res)
-}).catch(function (err) {
+}).catch(err => {
   console.log(err.message)
 })
 ```
@@ -141,7 +150,7 @@ Testing/Debugging
 Tests are written against [Jasmine 2.4](http://jasmine.github.io/2.4/introduction.html) and rely on instantiating a client with the `debug` option set to true
 
 ```js
-var ctxioClient = ContextIO({
+const ctxioClient = ContextIO({
   key: "testy_key",
   secret: "sooper_secret",
   debug: true

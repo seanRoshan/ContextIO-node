@@ -1,30 +1,30 @@
-var ContextIO = require('../../ContextIO-node')
+const ContextIO = require('../../ContextIO-node')
 
-describe('ContextIO Tests', function () {
-  it('check a nested lite resource', function (done) {
-    var ctxioClient = ContextIO({
+describe('ContextIO Tests', () => {
+  it('check a nested lite resource', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
       debug: true
     })
 
-    ctxioClient.users('user_id').connect_tokens('token').get().then(function (res) {
+    ctxioClient.users('user_id').connect_tokens('token').get().then(res => {
       expect(res.url).toBe('https://api.context.io/lite/users/user_id/connect_tokens/token/')
       done()
     })
   })
 
-  it('check a lite resource under users with no user_id', function (done) {
-    var ctxioClient = ContextIO({
+  it('check a lite resource under users with no user_id', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
       debug: true
     })
 
-    expect(function () {
-      ctxioClient.users().connect_tokens('tokens').get().then(function (res) {
+    expect(() => {
+      ctxioClient.users().connect_tokens('tokens').get().then(res => {
         // Should have errored out of here
         expect(true).toBe(false)
       })
@@ -33,16 +33,16 @@ describe('ContextIO Tests', function () {
     done()
   })
 
-  it('check a deeply nested lite resource with one missing parent identifier', function (done) {
-    var ctxioClient = ContextIO({
+  it('check a deeply nested lite resource with one missing parent identifier', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
       debug: true
     })
 
-    expect(function () {
-      ctxioClient.users('user_id').email_accounts('label').folders().messages().get().then(function (res) {
+    expect(() => {
+      ctxioClient.users('user_id').email_accounts('label').folders().messages().get().then(res => {
         // Should have errored out of here
         expect(true).toBe(false)
       })
@@ -51,34 +51,34 @@ describe('ContextIO Tests', function () {
     done()
   })
 
-  it('check a lite resource_url', function (done) {
-    var ctxioClient = ContextIO({
+  it('check a lite resource_url', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
       debug: true
     })
 
-    var resource_url = 'https://api.context.io/lite/foo/bar/baz'
+    const resource_url = 'https://api.context.io/lite/foo/bar/baz'
 
-    ctxioClient.resource(resource_url).post().then(function (res) {
+    ctxioClient.resource(resource_url).post().then(res => {
       expect(res.url).toBe(resource_url)
       expect(res.method).toBe('POST')
       done()
     })
   })
 
-  it('check a malformed lite resource_url', function (done) {
-    var ctxioClient = ContextIO({
+  it('check a malformed lite resource_url', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
       debug: true
     })
 
-    var resource_url = 'https://github.com/foo/bar/baz'
+    const resource_url = 'https://github.com/foo/bar/baz'
 
-    ctxioClient.resource(resource_url).get().then(function (res) {
+    ctxioClient.resource(resource_url).get().then(res => {
       expect(res.url).toBe('https://api.context.io/lite/' + resource_url)
       done()
     })

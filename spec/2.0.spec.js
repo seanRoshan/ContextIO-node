@@ -1,28 +1,28 @@
-var ContextIO = require('../../ContextIO-node')
+const ContextIO = require('../../ContextIO-node')
 
-describe('ContextIO Tests', function () {
-  it('check a nested 2.0 resource', function (done) {
-    var ctxioClient = ContextIO({
+describe('ContextIO Tests', () => {
+  it('check a nested 2.0 resource', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
     })
 
-    ctxioClient.accounts('account_id').messages('message_id').get().then(function (res) {
+    ctxioClient.accounts('account_id').messages('message_id').get().then(res => {
       expect(res.url).toBe('https://api.context.io/2.0/accounts/account_id/messages/message_id/')
       done()
     })
   })
 
-  it('check a 2.0 resource under accounts with no account_id', function (done) {
-    var ctxioClient = ContextIO({
+  it('check a 2.0 resource under accounts with no account_id', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
     })
 
-    expect(function () {
-      ctxioClient.accounts().messages().get().then(function (res) {
+    expect(() => {
+      ctxioClient.accounts().messages().get().then(res => {
         // Should have errored out of here
         expect(true).toBe(false)
       })
@@ -31,15 +31,15 @@ describe('ContextIO Tests', function () {
     done()
   })
 
-  it('check a deeply nested 2.0 resource with one missing parent identifier', function (done) {
-    var ctxioClient = ContextIO({
+  it('check a deeply nested 2.0 resource with one missing parent identifier', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
     })
 
-    expect(function () {
-      ctxioClient.accounts('account_id').sources('').folders('folder').messages().get().then(function (res) {
+    expect(() => {
+      ctxioClient.accounts('account_id').sources('').folders('folder').messages().get().then(res => {
         // Should have errored out of here
         expect(true).toBe(false)
       })
@@ -48,35 +48,35 @@ describe('ContextIO Tests', function () {
     done()
   })
 
-  it('check a 2.0 resource_url', function (done) {
-    var ctxioClient = ContextIO({
+  it('check a 2.0 resource_url', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
     })
 
-    var resource_url = 'https://api.context.io/2.0/foo/bar/baz'
+    const resource_url = 'https://api.context.io/2.0/foo/bar/baz'
 
-    ctxioClient.resource(resource_url).post().then(function (res) {
+    ctxioClient.resource(resource_url).post().then(res => {
       expect(res.url).toBe(resource_url)
       expect(res.method).toBe('POST')
       done()
     })
   })
 
-  it('check a malformed 2.0 resource_url', function (done) {
-    var ctxioClient = ContextIO({
+  it('check a malformed 2.0 resource_url', done => {
+    const ctxioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
     })
 
-    var resource_url = 'https://github.com/foo/bar/baz'
+    const resource_url = 'https://github.com/foo/bar/baz'
 
-    ctxioClient.resource(resource_url).get().then(function (res) {
+    ctxioClient.resource(resource_url).get().then(res => {
       expect(res.url).toBe('https://api.context.io/2.0/' + resource_url)
       done()
     })
   })
-  
+
 })
