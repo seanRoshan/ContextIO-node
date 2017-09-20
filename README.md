@@ -56,7 +56,7 @@ GET /2.0/accounts?limit=15
 your function call would be:
 
 ``` js
-ctxioClient.accounts().get({limit:15}).then(res => {
+ctxioClient.accounts().get({limit: 15}).then(res => {
   console.log(res)
 })
 ```
@@ -78,20 +78,26 @@ Parameters
 Query parameters are passed in as an object to the method call:
 
 ```js
-.get({limit:15})
+.get({query: "foo"})
 ```
 
 Post parameters are passed the same way:
 
 ```js
-.post({email:"test@test.com"})
+.post({body: "bar"})
 ```
 
-If an endpoint supports both query params and a post body, you can pass the query params as another object:
+If an endpoint supports both query params and a post body, you can pass the query params as second object:
 
 ```js
-.post({email:"test@test.com"}, {foo: "bar"})
+.post({body: "bar"}, {query: "foo"})
 ```
+
+If a POST or a PUT only requires query params, you may pass either an empty object or `null` for the body:
+```js
+.put(null, {query: "foo"})
+```
+
 
 Resource URLs
 ----------------------------------
@@ -109,7 +115,10 @@ Endpoints that return a raw response will return the unparsed body.
 
 The `2.0/accounts/files/content` endpoint will return an object containing the request headers and the unprocessed body. For more information, please visit our [documentation for that endpoint](https://context.io/docs/2.0/accounts/files/content).
 ```js
-{ headers: res.headers, body: res.body }
+{
+  headers: res.headers,
+  body: res.body
+}
 ```
 
 Error handling
@@ -117,7 +126,7 @@ Error handling
 All errors are thrown, so to handle these gracefully you should add a `catch()` to your API calls.
 
 ``` js
-ctxioClient.accounts().get({limit:15}).then(res => {
+ctxioClient.accounts().get({limit: 15}).then(res => {
   console.log(res)
 }).catch(err => {
   console.log(err.message)
