@@ -2,27 +2,27 @@ const ContextIO = require('../../ContextIO-node')
 
 describe('ContextIO Tests', () => {
   it('check a nested 2.0 resource', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
     })
 
-    ctxioClient.accounts('account_id').messages('message_id').get().then(res => {
+    cioClient.accounts('account_id').messages('message_id').get().then(res => {
       expect(res.url).toBe('https://api.context.io/2.0/accounts/account_id/messages/message_id/')
       done()
     })
   })
 
   it('check a 2.0 resource under accounts with no account_id', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
     })
 
     expect(() => {
-      ctxioClient.accounts().messages().get().then(res => {
+      cioClient.accounts().messages().get().then(res => {
         // Should have errored out of here
         expect(true).toBe(false)
       })
@@ -32,14 +32,14 @@ describe('ContextIO Tests', () => {
   })
 
   it('check a deeply nested 2.0 resource with one missing parent identifier', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
     })
 
     expect(() => {
-      ctxioClient.accounts('account_id').sources('').folders('folder').messages().get().then(res => {
+      cioClient.accounts('account_id').sources('').folders('folder').messages().get().then(res => {
         // Should have errored out of here
         expect(true).toBe(false)
       })
@@ -49,7 +49,7 @@ describe('ContextIO Tests', () => {
   })
 
   it('check a 2.0 resource_url', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
@@ -57,7 +57,7 @@ describe('ContextIO Tests', () => {
 
     const resource_url = 'https://api.context.io/2.0/foo/bar/baz'
 
-    ctxioClient.resource(resource_url).post().then(res => {
+    cioClient.resource(resource_url).post().then(res => {
       expect(res.url).toBe(resource_url)
       expect(res.method).toBe('POST')
       done()
@@ -65,7 +65,7 @@ describe('ContextIO Tests', () => {
   })
 
   it('check a malformed 2.0 resource_url', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       debug: true
@@ -73,7 +73,7 @@ describe('ContextIO Tests', () => {
 
     const resource_url = 'https://github.com/foo/bar/baz'
 
-    ctxioClient.resource(resource_url).get().then(res => {
+    cioClient.resource(resource_url).get().then(res => {
       expect(res.url).toBe('https://api.context.io/2.0/' + resource_url)
       done()
     })

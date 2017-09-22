@@ -2,21 +2,21 @@ const ContextIO = require('../../ContextIO-node')
 
 describe('ContextIO Tests', () => {
   it('check a nested lite resource', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
       debug: true
     })
 
-    ctxioClient.users('user_id').connect_tokens('token').get().then(res => {
+    cioClient.users('user_id').connect_tokens('token').get().then(res => {
       expect(res.url).toBe('https://api.context.io/lite/users/user_id/connect_tokens/token/')
       done()
     })
   })
 
   it('check a lite resource under users with no user_id', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
@@ -24,7 +24,7 @@ describe('ContextIO Tests', () => {
     })
 
     expect(() => {
-      ctxioClient.users().connect_tokens('tokens').get().then(res => {
+      cioClient.users().connect_tokens('tokens').get().then(res => {
         // Should have errored out of here
         expect(true).toBe(false)
       })
@@ -34,7 +34,7 @@ describe('ContextIO Tests', () => {
   })
 
   it('check a deeply nested lite resource with one missing parent identifier', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
@@ -42,7 +42,7 @@ describe('ContextIO Tests', () => {
     })
 
     expect(() => {
-      ctxioClient.users('user_id').email_accounts('label').folders().messages().get().then(res => {
+      cioClient.users('user_id').email_accounts('label').folders().messages().get().then(res => {
         // Should have errored out of here
         expect(true).toBe(false)
       })
@@ -52,7 +52,7 @@ describe('ContextIO Tests', () => {
   })
 
   it('check a lite resource_url', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
@@ -61,7 +61,7 @@ describe('ContextIO Tests', () => {
 
     const resource_url = 'https://api.context.io/lite/foo/bar/baz'
 
-    ctxioClient.resource(resource_url).post().then(res => {
+    cioClient.resource(resource_url).post().then(res => {
       expect(res.url).toBe(resource_url)
       expect(res.method).toBe('POST')
       done()
@@ -69,7 +69,7 @@ describe('ContextIO Tests', () => {
   })
 
   it('check a malformed lite resource_url', done => {
-    const ctxioClient = ContextIO({
+    const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
       version: 'lite',
@@ -78,7 +78,7 @@ describe('ContextIO Tests', () => {
 
     const resource_url = 'https://github.com/foo/bar/baz'
 
-    ctxioClient.resource(resource_url).get().then(res => {
+    cioClient.resource(resource_url).get().then(res => {
       expect(res.url).toBe('https://api.context.io/lite/' + resource_url)
       done()
     })

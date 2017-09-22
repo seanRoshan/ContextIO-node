@@ -32,7 +32,7 @@ The constructor requires your OAuth consumer key and secret, which you can find 
 ``` js
 const ContextIO = require('contextio')
 
-const ctxioClient = ContextIO({
+const cioClient = ContextIO({
   key: "YOUR CONTEXT.IO OAuth CONSUMER KEY",
   secret: "YOUR CONTEXT.IO OAuth CONSUMER SECRET",
   version: "SELECTED API VERSION"
@@ -56,7 +56,7 @@ GET /2.0/accounts?limit=15
 your function call would be:
 
 ``` js
-ctxioClient.accounts().get({limit: 15}).then(res => {
+cioClient.accounts().get({limit: 15}).then(res => {
   console.log(res)
 })
 ```
@@ -70,7 +70,7 @@ METHOD /RESOURCE/INSTANCE_ID/SUB_RESOURCE?PARAMS
 would be:
 
 ``` js
-ctxioClient.RESOURCE(INSTANCE_ID).SUB_RESOURCE().METHOD(PARAMS).then(success_handler)
+cioClient.RESOURCE(INSTANCE_ID).SUB_RESOURCE().METHOD(PARAMS).then(success_handler)
 ```
 
 Parameters
@@ -104,7 +104,7 @@ Resource URLs
 Certain endpoints, such as `/2.0/accounts/threads` will return a complete URL that you can call to access a resource. You can use the `resource()` function to call these urls. Parameters are passed as normal.
 
 ```js
-ctxioClient.resource(resource_url).get().then(res => {...})
+cioClient.resource(resource_url).get().then(res => {...})
 ```
 
 Success Callback
@@ -126,7 +126,7 @@ Error handling
 All errors are thrown, so to handle these gracefully you should add a `catch()` to your API calls.
 
 ``` js
-ctxioClient.accounts().get({limit: 15}).then(res => {
+cioClient.accounts().get({limit: 15}).then(res => {
   console.log(res)
 }).catch(err => {
   console.log(err.message)
@@ -138,7 +138,7 @@ This can occur when a parent resource identifier is missing or when the api key/
 
 For example, this call would would cause an error to be thrown because there is no `account_id`.
 ```js
-ctxioClient.accounts().messages().get()
+cioClient.accounts().messages().get()
 ```
 
 There is no API error handling built in this client and all API errors will be thrown intact. Our [documentation](https://context.io/docs/) can help in understanding error codes and a handy reference for http status codes can be found over at [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Response_codes).
@@ -159,7 +159,7 @@ Testing/Debugging
 Tests are written against [Jasmine 2.4](http://jasmine.github.io/2.4/introduction.html) and rely on instantiating a client with the `debug` option set to true
 
 ```js
-const ctxioClient = ContextIO({
+const cioClient = ContextIO({
   key: "testy_key",
   secret: "sooper_secret",
   debug: true
