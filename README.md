@@ -45,7 +45,7 @@ We **strongly** discourage keeping OAuth credentials in source control. If you e
 Making calls to the Context.IO API
 ----------------------------------
 
-Complete documentation is available on http://context.io/docs/ and you can also play around with the API using the [API Explorer](https://console.context.io/#explore) on our developer console.
+Complete documentation is available at https://docs.context.io/ and you can also play around with the API using the [API Explorer](https://console.context.io/#explore) on our developer console.
 
 The design of this library follows the URI structure very closely. For example, to call:
 
