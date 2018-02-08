@@ -56,6 +56,7 @@ describe('ContextIO Tests', () => {
     const cioClient = ContextIO({
       key: 'testy_key',
       secret: 'sooper_secret',
+      version: '2.0',
       debug: true
     })
 

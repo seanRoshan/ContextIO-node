@@ -7,6 +7,11 @@ Context.IO is the missing email API that makes it easy and fast to integrate you
 
 Usage of this library requires you to register for a Context.IO API key. You can get one free here: http://context.io/
 
+### NOTICE
+
+The 2.0 version of the API will be deprecated in favor of the Lite version of the API. 2.0 will be partially deprecated on June 15, 2018, and disabled altogether on December 15, 2018.
+
+[READ MORE HERE](https://blog.context.io/important-announcement-deprecation-of-2-0-api-8f73488a8c0e)
 
 Installation
 ------------
@@ -27,7 +32,7 @@ _Note:_ This library was written using ES6 syntax. Please use at least Node 6 to
 Getting started
 ---------------
 
-The constructor requires your OAuth consumer key and secret, which you can find by logging in to the [CIO Developer Console](https://console.context.io/). You can optionally specify the API version you wish to use. By default, the client will use version 2.0.
+The constructor requires your OAuth consumer key and secret, which you can find by logging in to the [CIO Developer Console](https://console.context.io/). You can optionally specify the API version you wish to use. By default, the client will use version Lite.
 
 ``` js
 const ContextIO = require('contextio')
