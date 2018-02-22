@@ -160,8 +160,12 @@ Calls that return file data will have a slightly different response shape:
 ```
 
 This is used on the following endpoints:
-`2.0 accounts().files().content().get()` (unless the 'as_link' parameter is present)
-`lite users().email_accounts().folders().messages().attachments().getFile()` (`.get()` is also available)
+
+`2.0 accounts().files().content().get()`
+- (unless the 'as_link' parameter is present)
+
+`lite users().email_accounts().folders().messages().attachments().getFile()`
+- (`.get()` is also available)
 
 Testing/Debugging
 -------
