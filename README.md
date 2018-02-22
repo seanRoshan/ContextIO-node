@@ -159,6 +159,10 @@ Calls that return file data will have a slightly different response shape:
 }
 ```
 
+This is used on the following endpoints:
+`2.0 accounts().files().content().get()` (unless the 'as_link' parameter is present)
+`lite users().email_accounts().folders().messages().attachments().getFile()` (`.get()` is also available)
+
 Testing/Debugging
 -------
 Tests are written against [Jasmine 2.4](http://jasmine.github.io/2.4/introduction.html) and rely on instantiating a client with the `debug` option set to true
