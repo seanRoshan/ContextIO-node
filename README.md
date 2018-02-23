@@ -167,6 +167,8 @@ This is used on the following endpoints:
 `lite users().email_accounts().folders().messages().attachments().getFile()`
 - (`.get()` is also available)
 
+If the file name cannot be determined it will be returned as an empty string - the [list attachments](https://docs.context.io/#list-attachments) call may return better information.
+
 Testing/Debugging
 -------
 Tests are written against [Jasmine 2.4](http://jasmine.github.io/2.4/introduction.html) and rely on instantiating a client with the `debug` option set to true
