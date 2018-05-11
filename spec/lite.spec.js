@@ -84,4 +84,18 @@ describe('ContextIO Tests', () => {
     })
   })
 
+  it('checks an app-level call', done => {
+    const cioClient = ContextIO({
+      key: 'testy_key',
+      secret: 'sooper_secret',
+      version: 'lite',
+      debug: true
+    })
+
+    cioClient.app().logs().webhooks().get().then(res => {
+      expect(res.url).toBe('https://api.context.io/app/logs/webhooks/')
+      done()
+    })
+  })
+
 })

@@ -112,6 +112,14 @@ Certain endpoints, such as `/2.0/accounts/threads` will return a complete URL th
 cioClient.resource(resource_url).get().then(res => {...})
 ```
 
+App-Level Calls
+----------------------------------
+The app-level calls, such as `/app/status_callback_url` can be accessed under `.app()` regardless of your configured API version.
+
+```js
+cioClient.app().status_callback_url().get().then(res => {...})
+```
+
 Success Callback
 ----------------
 Your callback function will receive one argument: an object containing the API response. The body will be JSON parsed for all endpoints that return JSON.
